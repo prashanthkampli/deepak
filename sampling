@@ -1,0 +1,70 @@
+closeall; 
+clear; 
+tfinal=0.01;  
+t=0:0.00001:tfinal; % define time vector .01/.00001=1000 sample pts 
+Fa=input('enter the analog signal frequency');  
+%Generate and plot analog signal  
+xt=cos(2*pi*Fa*t);  
+subplot(4,1,1);  
+plot(t,xt,'r');  
+title('analog signal');  
+xlabel('time');  
+ylabel('amplitude');  
+%simulate condition for under sampling i.e., fs1 
+Fs1=1.3*Fa;  
+n1=0:1/Fs1:tfinal;  
+x1n=cos(2*pi*Fa*n1); 
+subplot(4,1,2);  
+stem(n1,x1n,'b');  
+title('undersampled signal');  
+xlabel('discrete time'); 
+ylabel('amplitude'); 
+%condition for Nyquist sampling fs2=2*fd and plot the samples 
+Fs2=2*Fa; 
+n2=0:1/Fs2:tfinal; 
+x2n=cos(2*pi*Fa*n2); 
+subplot(4,1,3); 
+stem(n2,x2n,'r'); 
+title('critically sampled signal'); 
+xlabel('discrete time'); 
+ylabel('amplitude'); 
+%condition for oversampling 
+Fs3=10*Fa; 
+n3=0:1/Fs3:tfinal; 
+x3n=cos(2*pi*Fa*n3); 
+subplot(4,1,4); 
+stem(n3,x3n,'g'); 
+title('oversampled signal'); 
+xlabel('discrete time'); 
+ylabel('amplitude'); 
+%Plot the analog signal 
+Figure 
+subplot(4,1,1); 
+plot(t,xt); 
+title('analog signal'); 
+xlabel('time'); 
+ylabel('amplitude'); 
+%Reconstruction from under sampled signal 
+xr1=interp(x1n,2); 
+nr1=interp(n1,2); 
+subplot(4,1,2); 
+plot(nr1,xr1); 
+title('reconstruction from undersampled signal'); 
+xlabel('time'); 
+ylabel('amplitude'); 
+%Reconstruction from critically sampled signal 
+xr2=interp(x2n,2); 
+nr2=interp(n2,2); 
+subplot(4,1,3); 
+plot(nr2,xr2); 
+title('reconstruction from critically sampled signal'); 
+xlabel('time'); 
+ylabel('amplitude'); 
+%Reconstruction from over sampled signal 
+xr3=interp(x3n,2); 
+nr3=interp(n3,2); 
+subplot(4,1,4); 
+plot(nr3,xr3); 
+title('reconstruction from oversampled signal'); 
+xlabel('time'); 
+ylabel('amplitude');
